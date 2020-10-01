@@ -15,7 +15,6 @@
 *.dmg
 *.gz
 *.iso
-*.jar
 *.rar
 *.tar
 *.zip
@@ -43,5 +42,5 @@ bin/
 .project
 .classpath
 /.metadata/
-
+.jar
 

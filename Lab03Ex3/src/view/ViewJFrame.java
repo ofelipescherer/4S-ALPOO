@@ -135,4 +135,16 @@ public class ViewJFrame extends JFrame implements View{
 	public void setShowResultListener(ActionListener ActionListener) {
 		
 	}
+
+	@Override
+	public void buttonBehavior(ActionListener al) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setLabelText(String txt) {
+		// TODO Auto-generated method stub
+		
+	}
 }
