@@ -11,6 +11,7 @@ import view.View;
 public class Controller {
 	private View view;
 	private Model model;
+	private boolean isPerishable = false;
 	
 	public Controller(View view, Model model) {
 		this.view = view;
@@ -21,7 +22,7 @@ public class Controller {
 	public void init() {
 		view.setMostraProdutoListener(new ComportamentoListaProdutos());
 		view.setCadastraProdutoListener(new ComportamentoCadastraProduto());
-		view.setCadastraProdutoListener(new ComportamentoListaProdutosPereciveis());
+		view.trocaFuncoes(new ComportamentoTrocaTipoProduto());
 	}
 	
 	class ComportamentoListaProdutos implements ActionListener {
@@ -34,12 +35,17 @@ public class Controller {
 		
 	}
 	
-	class ComportamentoListaProdutosPereciveis implements ActionListener {
+	class ComportamentoTrocaTipoProduto implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Collection<Produto> produtos = model.loadProdutos(true);
-			view.mostraProdutos(produtos);
+			isPerishable = !isPerishable;
+			if(view.getButtonChangeText().equals("Normal")) {
+				view.setButtonChangeText("Perishable");
+				
+			} else {
+				view.setButtonChangeText("Normal");
+			}
 		}
 		
 	}

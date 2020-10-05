@@ -27,7 +27,7 @@ public class JanelaJtable extends JFrame implements View{
 	DefaultTableModel modelTable;
 	JButton buttonVerify;
 	JButton buttonAddCell;
-	JButton buttonVerifyPerishable;
+	JButton buttonChange;
 	
 	JTextField txtField1 = new JTextField(10);
 	JTextField txtField2 = new JTextField(10);
@@ -73,10 +73,10 @@ public class JanelaJtable extends JFrame implements View{
 		panelButton.setLayout(new GridLayout(3,1,40,5));
 		buttonVerify = new JButton("Verify");
 		buttonAddCell = new JButton("Add");
-		buttonVerifyPerishable = new JButton("Verify Perishable");
+		buttonChange = new JButton("Perishable");
 		panelButton.add(buttonVerify);
 		panelButton.add(buttonAddCell);
-		panelButton.add(buttonVerifyPerishable);
+		panelButton.add(buttonChange);
 		panelBottom.add(panelButton,BorderLayout.LINE_END);
 		
 		
@@ -91,6 +91,11 @@ public class JanelaJtable extends JFrame implements View{
 			add(new JLabel(label));
 			add(txt);	
 		}
+		
+	}
+	
+	@Override
+	public void setPerisiblePanel() {
 		
 	}
 	
@@ -116,10 +121,20 @@ public class JanelaJtable extends JFrame implements View{
 	}
 	
 	@Override
-	public void mostraProdutosPereciveis(ActionListener al) {
-		buttonVerifyPerishable.addActionListener(al);		
+	public void trocaFuncoes(ActionListener al) {
+		buttonChange.addActionListener(al);		
 	}
 
+	@Override
+	public String getButtonChangeText() {
+		return buttonChange.getText();
+	}
+	
+	@Override
+	public void setButtonChangeText(String txt) {
+		buttonChange.setText(txt);
+	}
+	
 	@Override
 	public int getIdProduto() {
 		return Integer.parseInt(txtField1.getText());

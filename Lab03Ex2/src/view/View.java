@@ -15,13 +15,20 @@ public interface View {
 	 */
 	public void setMostraProdutoListener(ActionListener al);
 	
-	public void mostraProdutosPereciveis(ActionListener al);
+	public void trocaFuncoes(ActionListener al);
+	
+	public String getButtonChangeText();
+	
+	public void setPerisiblePanel();
+	
+	public void setButtonChangeText(String txt);
 	
 	/**
 	 * Exibe uma coleção de produtos para o usuário final
 	 * @param produtos Coleção de produtos a serem exibidos
 	 */
 	public void mostraProdutos(Collection<Produto> produtos);
+	
 	
 	/**
 	 * Define (adiciona) um ActionListener para iniciar a 
