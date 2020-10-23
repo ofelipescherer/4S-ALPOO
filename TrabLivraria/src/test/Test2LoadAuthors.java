@@ -1,13 +1,13 @@
-package teste;
+package test;
 
 import java.util.ArrayList;
 
-import dao.DAOJDBC;
-import entity.Author;
+import entities.Author;
+import model.dao.jdbc.DaoJDBC;
 
-public class LoadAuthors {
+public class Test2LoadAuthors {
 	public static void main(String[] args) {
-		DAOJDBC dao = new DAOJDBC();
+		DaoJDBC dao = new DaoJDBC();
 		
 		ArrayList<Author> arrayList = new ArrayList<>();
 		
@@ -19,3 +19,4 @@ public class LoadAuthors {
 		
 	}
 }
+

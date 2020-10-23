@@ -1,13 +1,11 @@
-package teste;
+package test;
 
-import dao.DAOJDBC;
-import entity.Author;
+import entities.Author;
+import model.dao.jdbc.DaoJDBC;
 
-public class TestConnection {
-
-	
+public class Teste1TestConnection {
 	public static void main(String[] args) {
-		DAOJDBC dao = new DAOJDBC();
+		DaoJDBC dao = new DaoJDBC();
 		
 		dao.testConnection();
 		

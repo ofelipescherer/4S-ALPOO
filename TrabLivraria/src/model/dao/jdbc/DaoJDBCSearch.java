@@ -1,32 +1,20 @@
-package dao;
+package model.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import entity.Author;
+import entities.Author;
 
-public class DAOJDBC {
-	String driver = "com.mysql.jdbc.Driver";
-    String url = "jdbc:mysql://localhost:3306/Livraria?autoReconnect=true&useSSL=false";
-    String user = "Felipe";
-    String pass = "123";
-    
-    public void testConnection() {
-    	try (Connection con = DriverManager.getConnection(url, user, pass)){
-    		System.out.println("Conexão feita");
-    	} catch (SQLException e){
-    		System.out.println("Conexão não foi feita");
-    		e.printStackTrace();
-    	}
-    }
-    
+public class DaoJDBCSearch {
+	
+	
+	
     public void loadAuthors(ArrayList<Author> arrayList) {
-    	try (Connection con = DriverManager.getConnection(url, user, pass)){
+    	try (Connection con = DriverManager.getConnection("", "", "")){
     		
     		final String querry = "SELECT * FROM Authors";
     		
@@ -48,10 +36,4 @@ public class DAOJDBC {
     		e.printStackTrace();
     	}
     }
-    
-
 }
-
-
-
-
