@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -47,6 +48,8 @@ public class JFrameAlterar extends FrameBase{
 	JButton buttonSubmit;
 	public ArrayList<Author> autoresEscolhidos;
 	public Publisher editoraEscolhida;
+	
+	JFrameListEditoras listaEditoras;
 	
 	JFrameAlterar(){
 		super("alterar");
@@ -141,8 +144,10 @@ public class JFrameAlterar extends FrameBase{
 					arrayList.add(new Author(313, "Skoll", "Redondo"));
 					arrayList.add(new Author(313, "Nahara", "Yui"));
 					arrayList.add(new Author(313, "Xandão", "Super"));
-					new JFrameListAutores(arrayList, autoresEscolhidos);
 					
+					
+
+				    new JFrameListAutores(arrayList, autoresEscolhidos);
 				}
 			});
             card2.add(buttonChooseAuthors);
@@ -158,7 +163,17 @@ public class JFrameAlterar extends FrameBase{
 					array.add(new Publisher(351, "Behavior", "www.behavior.com"));
 					array.add(new Publisher(5643, "Jota", "www.jota.com"));
 					
-					new JFrameListEditoras(array, editoraEscolhida);
+				    class TerminaListener implements ActionListener{
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							
+							
+							editoraEscolhida = listaEditoras.getEditora();
+							System.out.println(editoraEscolhida);
+						}
+				    }
+				    
+					listaEditoras = new JFrameListEditoras(array, editoraEscolhida, new TerminaListener());
 					
 				}
 			});

@@ -35,7 +35,9 @@ public class JFrameListEditoras extends JFrame  {
 	ArrayList<Publisher> editoras;
 	Publisher editoraEscolhida;
     
-	public JFrameListEditoras(ArrayList<Publisher> editoras, Publisher editoraEscolhidavar) {
+	ActionListener TerminaListener;
+	
+	public JFrameListEditoras(ArrayList<Publisher> editoras, Publisher editoraEscolhidavar, ActionListener al) {
 		super("Escolhe Editoras");
 		setSize(400,400);
 		
@@ -48,7 +50,7 @@ public class JFrameListEditoras extends JFrame  {
 		editoraEscolhida = editoraEscolhidavar;
 		listModel = new DefaultListModel();
 	
-//
+		TerminaListener = al;
 		
 		for(Publisher a : this.editoras) {
 			listModel.addElement(a.getName());
@@ -64,7 +66,7 @@ public class JFrameListEditoras extends JFrame  {
         //list.setCellRenderer(new AuthorRender()); //Mostra as celulas bonitinhas na lista 
 // 
         buttonFinish = new JButton(finishString);
-        buttonFinish.addActionListener(new TerminaListener());
+        buttonFinish.addActionListener(TerminaListener);
  
         //Create a panel that uses BoxLayout.
         JPanel buttonPane = new JPanel();
@@ -83,18 +85,12 @@ public class JFrameListEditoras extends JFrame  {
         setVisible(true);
     }
     
-    class TerminaListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int index = list.getSelectedIndex();
-			
-			editoraEscolhida = editoras.get(index);
-			
-			System.out.println(editoraEscolhida);
-			
-			dispose();
-		}
-    }
+	public Publisher getEditora() {
+		int index = list.getSelectedIndex();
+		//dispose();
+		return editoraEscolhida = editoras.get(index);
+		
+	}
     
 	
 }
