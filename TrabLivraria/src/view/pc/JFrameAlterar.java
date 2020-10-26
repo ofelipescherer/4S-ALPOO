@@ -23,6 +23,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 import entities.Author;
+import entities.Publisher;
 
 public class JFrameAlterar extends FrameBase{
 	JComboBox<String> lista;
@@ -30,16 +31,22 @@ public class JFrameAlterar extends FrameBase{
 	
 	JComboBox cb;
 	JFormattedTextField txtISBN;
+	JTextField txtTitulo;
 	JFormattedTextField txtBookPrice;
 	JButton buttonChooseAuthors;
+	JButton buttonChoosePublishers;
 	
-	JTextField txtIDAutor;
+	JTextField txtNomeAntigoAutor;
 	JTextField txtNomeAutor;
 	JTextField txtSobrenomeAutor;
 	
-	JFormattedTextField txtIDEditora;
-	JButton buttonSubmit;
+	JTextField txtNomeEditora;
+	JTextField txtNovoNomeEditora;
+	JTextField txtNovaUrlEditora;
 	
+	JButton buttonSubmit;
+	public ArrayList<Author> autoresEscolhidos;
+	public Publisher editoraEscolhida;
 	
 	JFrameAlterar(){
 		super("alterar");
@@ -49,6 +56,7 @@ public class JFrameAlterar extends FrameBase{
 		add(panelEscolhas);
 		pack();
 		setLocationRelativeTo(null);
+		setVisible(true);
 		
 	}
 	
@@ -86,9 +94,9 @@ public class JFrameAlterar extends FrameBase{
 	        JPanel card1 = new JPanel();
 	        card1.setLayout(new GridLayout(4,2));
 	        
-	        txtIDAutor = new JTextField();
-            card1.add(new JLabel("ID do Autor: ", JLabel.TRAILING));
-            card1.add(txtIDAutor);
+	        txtNomeAntigoAutor = new JTextField();
+            card1.add(new JLabel("Nome antigo do Autor: ", JLabel.TRAILING));
+            card1.add(txtNomeAntigoAutor);
             
             card1.add(new JLabel("Novo Nome do Autor: ", JLabel.TRAILING));
             txtNomeAutor = new JTextField();
@@ -104,13 +112,19 @@ public class JFrameAlterar extends FrameBase{
 	        
 	        
 	        JPanel card2 = new JPanel();
-	        card2.setLayout(new GridLayout(4,2));
+	        card2.setLayout(new GridLayout(6,2));
 	        txtISBN = new JFormattedTextField(createFormatter("#-###-#####-#"));
             card2.add(new JLabel("ISBN: ", JLabel.TRAILING));
 	        txtISBN.setPreferredSize( new Dimension( 50, 30 ));
 	        card2.add(txtISBN);
 	        
-	        txtBookPrice = new JFormattedTextField(createFormatter("#-###-#####-#"));
+	        
+	        txtTitulo = new JTextField();
+            card2.add(new JLabel("Titulo: ", JLabel.TRAILING));
+            txtTitulo.setPreferredSize( new Dimension( 50, 30 ));
+	        card2.add(txtTitulo);
+	        
+	        txtBookPrice = new JFormattedTextField(createFormatter("##.##"));
             card2.add(new JLabel("Novo preço: ", JLabel.TRAILING));
             txtBookPrice.setPreferredSize( new Dimension( 50, 30 ));
 	        card2.add(txtBookPrice);
@@ -122,16 +136,33 @@ public class JFrameAlterar extends FrameBase{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					ArrayList<Author> arrayList = new ArrayList<Author>();
-					ArrayList<Author> autoresEscolhidos = new ArrayList<Author>();
+					autoresEscolhidos = new ArrayList<Author>();
 					arrayList.add(new Author(312, "Scherer", "Felipe"));
 					arrayList.add(new Author(313, "Skoll", "Redondo"));
 					arrayList.add(new Author(313, "Nahara", "Yui"));
 					arrayList.add(new Author(313, "Xandão", "Super"));
-					new JFrameListAutores(arrayList);
+					new JFrameListAutores(arrayList, autoresEscolhidos);
 					
 				}
 			});
             card2.add(buttonChooseAuthors);
+            
+	        card2.add(new JLabel("Escolher Editora: ", JLabel.TRAILING));
+	        buttonChoosePublishers = new JButton("Editora");
+	        buttonChoosePublishers.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ArrayList<Publisher> array = new ArrayList<>();
+					array.add(new Publisher(2121, "Bandai", "www.bandai.com"));
+					array.add(new Publisher(351, "Behavior", "www.behavior.com"));
+					array.add(new Publisher(5643, "Jota", "www.jota.com"));
+					
+					new JFrameListEditoras(array, editoraEscolhida);
+					
+				}
+			});
+            card2.add(buttonChoosePublishers);
             
 	        buttonSubmit = new JButton("Enviar");
 	        buttonSubmit.addActionListener(new testBehavior());
@@ -139,15 +170,27 @@ public class JFrameAlterar extends FrameBase{
 
 	        
 	        JPanel card3 = new JPanel();
-	        card3.setLayout(new GridLayout(1,3));
-	        txtIDEditora = new JFormattedTextField(mascaraNumero);
-            card3.add(new JLabel("ID da Editora: ", JLabel.TRAILING));
-            txtIDEditora.setPreferredSize( new Dimension( 50, 30 ));
-	        card3.add(txtIDEditora);
+	        card3.setLayout(new GridLayout(4,2));
+	        txtNomeEditora = new JTextField();
+            card3.add(new JLabel("Nome antigo da editora: ", JLabel.TRAILING));
+            txtNomeEditora.setPreferredSize( new Dimension( 50, 30 ));
+	        card3.add(txtNomeEditora);
+	        
+	        txtNovoNomeEditora = new JTextField();
+	        card3.add(new JLabel("Novo nome da Editora: ", JLabel.TRAILING));
+	        card3.add(txtNovoNomeEditora);
+	        
+	        txtNovaUrlEditora = new JTextField();
+	        card3.add(new JLabel("Nova URL da editora: ", JLabel.TRAILING));
+	        card3.add(txtNovaUrlEditora);	        
+	        
 	        buttonSubmit = new JButton("Enviar");
 	        buttonSubmit.addActionListener(new testBehavior());
 	        card3.add(buttonSubmit);
 	        
+	        
+	    	
+	    	
 	        
 	        //Create the panel that contains the "cards".
 	        cards = new JPanel(new CardLayout());
@@ -184,7 +227,16 @@ public class JFrameAlterar extends FrameBase{
 		public void actionPerformed(ActionEvent e) {
 			if(cb.getSelectedItem().equals("Livros")) {
 				if(!txtISBN.getText().equals(" -   -     - ")) {
-					JOptionPane.showMessageDialog(null, "ISBN: " + txtISBN.getText());
+					String stringAutores = "";
+					for(Author a : autoresEscolhidos) {
+						stringAutores +=  "\n" + a.getFname() + " " + a.getName() ;
+					}
+					System.out.println(autoresEscolhidos);
+					JOptionPane.showMessageDialog(null, "ISBN: " + txtISBN.getText() +
+																	"\nTitulo: " + txtTitulo.getText() + 
+																	"\nPreco: " + txtBookPrice.getText() +
+																	"\nAutores: " + stringAutores + 
+																	"\nEditora: " + editoraEscolhida);
 				} else
 					JOptionPane.showMessageDialog(null, "Preencha o campo corretamente");
 			}else if(cb.getSelectedItem().equals("Autores")) {

@@ -1,8 +1,10 @@
 package view.pc;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,8 +12,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import view.pc.JFrameAlterar.PanelAlterar;
 
 public class FrameBase extends JFrame{
 	JComboBox<String> lista;
@@ -26,7 +26,6 @@ public class FrameBase extends JFrame{
 	
 	public FrameBase(String tipoDeOperacao) {
 		// TODO Auto-generated constructor stub
-		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
@@ -36,7 +35,7 @@ public class FrameBase extends JFrame{
 		panelLabels.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		panelLabels.add(new JLabel("Você está prestes a " + tipoDeOperacao + " algo", JLabel.CENTER));
-		panelLabels.add(new JLabel("Escolha a categoria no dropdown e preencha os campos", JLabel.CENTER));
+		panelLabels.add(new JLabel("Escolha a categoria e preencha os campos", JLabel.CENTER));
 		panelLabels.getComponent(0).setFont(new Font("Serif", Font.PLAIN, 30));
 		panelLabels.getComponent(1).setFont(new Font("Serif", Font.PLAIN, 17));
 

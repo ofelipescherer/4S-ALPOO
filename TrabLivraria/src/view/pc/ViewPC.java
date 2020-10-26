@@ -21,8 +21,8 @@ public class ViewPC extends JFrame implements View{
 	
 	private JFrameExcluir janelaExclui;
 	private JFrameAlterar janelaAltera;
-	private JFrameExcluir janelaInclui;
-	private JFrameExcluir janelaBusca;
+	private JFrameIncluir janelaInclui;
+	private JFrameBuscar janelaBusca;
 	
 	public ViewPC() {
 		super("APS Livraria");
@@ -71,6 +71,8 @@ public class ViewPC extends JFrame implements View{
 			
 			buttonExclui.addActionListener(new AtivaJanelaEscolheTipo());
 			buttonAltera.addActionListener(new AtivaJanelaEscolheTipo());
+			buttonBusca.addActionListener(new AtivaJanelaEscolheTipo());
+			buttonInclui.addActionListener(new AtivaJanelaEscolheTipo());
 			
 			add(buttonBusca);
 			add(buttonAltera);
@@ -87,8 +89,14 @@ public class ViewPC extends JFrame implements View{
 			if(e.getSource() == buttonExclui) {
 				janelaExclui = new JFrameExcluir();
 			}
-			if(e.getSource() == buttonAltera) {
+			else if(e.getSource() == buttonAltera) {
 				janelaAltera = new JFrameAlterar();
+			}
+			else if(e.getSource() == buttonInclui) {
+				janelaInclui = new JFrameIncluir();
+			}
+			else if(e.getSource() == buttonBusca) {
+				janelaBusca = new JFrameBuscar();
 			}
 			
 			//janelaInclui = new JFrameEscolheTipo("excluir");

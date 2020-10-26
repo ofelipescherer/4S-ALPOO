@@ -40,12 +40,13 @@ public class JFrameListAutores extends JFrame  {
 	ArrayList<Author> arrayAutores;
 	ArrayList<Integer> indexes;
 	
-	public JFrameListAutores(ArrayList<Author> arrayAutores) {
-		super("APS Livraria");
+	public JFrameListAutores(ArrayList<Author> arrayAutores,ArrayList<Author> autoresEscolhidos) {
+		super("Escolhe Autores");
 		
 		this.arrayAutores = arrayAutores;
+		this.arrayAutoresEscolhidos = autoresEscolhidos;
 		setSize(500,500);
-		setVisible(true);
+		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		//setResizable(false);
@@ -54,7 +55,6 @@ public class JFrameListAutores extends JFrame  {
 		listModel = new DefaultListModel();
 //
 		indexes = new ArrayList<>();
-		arrayAutoresEscolhidos = new ArrayList<>();
 		
 		for(Author a : this.arrayAutores) {
 			listModel.addElement(a.getFname() + " " + a.getName());
@@ -64,10 +64,9 @@ public class JFrameListAutores extends JFrame  {
         list = new JList(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
-        //list.addListSelectionListener(this);
         list.setVisibleRowCount(5);
         JScrollPane listScrollPane = new JScrollPane(list);
-        //list.setCellRenderer(new AuthorRender()); //Mostra as celulas bonitinhas na lista 
+
 // 
         buttonFinish = new JButton(finishString);
         buttonFinish.addActionListener(new TerminaListener());
@@ -96,6 +95,7 @@ public class JFrameListAutores extends JFrame  {
         
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }
  
     class AdicionaListener implements ActionListener {
@@ -113,6 +113,7 @@ public class JFrameListAutores extends JFrame  {
     			//Ainda nao foi adicionado, precisamos adiciona-lo
     			labelAutores.setText(labelAutores.getText() + list.getSelectedValue() + "; ");
     			indexes.add(index);
+    			pack();
     		}
         	//Quando adicionar um item, o botão terminar fica ativado de novo
             if(!buttonFinish.isEnabled()) {
@@ -131,26 +132,10 @@ public class JFrameListAutores extends JFrame  {
 			}
 			
 			System.out.println(arrayAutoresEscolhidos);
-			
+			dispose();
 		}
     }
     
-    
-    //Show list more friendly
-    class AuthorRender extends DefaultListCellRenderer{
-        public Component getListCellRendererComponent(
-            JList list, Object value, int index,
-            boolean isSelected, boolean cellHasFocus)
-        {
-            super.getListCellRendererComponent(list, value,
-                index, isSelected, cellHasFocus);
-
-            Author author = (Author)value;
-            setText(author.getFname() + " " + author.getName());
-
-            return this;
-        }
-    }
 	
 }
 

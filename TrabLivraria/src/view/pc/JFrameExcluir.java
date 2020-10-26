@@ -40,6 +40,7 @@ public class JFrameExcluir extends FrameBase{
 		
 		pack();
 		setLocationRelativeTo(null);
+		setVisible(true);
 		
 	}
 	
