@@ -1,4 +1,4 @@
-package view.pc;
+package view.pc.busca;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -14,7 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class JFrameBuscar extends FrameBase{
+import entities.Publisher;
+import view.pc.FrameBase;
+import view.pc.busca.tables.JTableEditoras;
+
+public class JFrameBuscar extends FrameBase {
 
 	JRadioButton bTodosLivros;
 	JRadioButton bTodosAutores;
@@ -98,6 +103,8 @@ public class JFrameBuscar extends FrameBase{
 			txtSubimit = new JTextFieldPersonalizado();
 			txtSubimit.setHorizontalAlignment(txtSubimit.CENTER);
 			bSubmit = new JButton("Enviar");
+			//bSubmit.addActionListener(new ButtonSubmitBehavior());
+			
 			add(txtSubimit);
 			add(bSubmit);
 		}
@@ -128,6 +135,7 @@ public class JFrameBuscar extends FrameBase{
 		        showingHint = true;
 		      }
 		}
+		
 		@Override
 		public String getText() {
 			if(showingHint) {
@@ -140,6 +148,10 @@ public class JFrameBuscar extends FrameBase{
 		
 	}
 	
+	public void addBuscaEditora(ActionListener al) {
+		bSubmit.addActionListener(al);	
+	}
+	
 	class JButtonBehavior implements ActionListener{
 
 		@Override
@@ -147,8 +159,34 @@ public class JFrameBuscar extends FrameBase{
 			
 			NomeDaDica = e.getActionCommand();
 			txtSubimit.focusLost(null);
+			
 		}
 		
 	}
+	
+	class ButtonSubmitBehavior implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			System.out.println("PRINTEI");
+//			ArrayList<Publisher> array = new ArrayList<>();
+//			array.add(new Publisher(3213, "Bandai", "www.bandai.com"));
+//			array.add(new Publisher(123, "Companhia das Letras", "www.companhiadasletras.com.br"));
+//			array.add(new Publisher(123, "Panda Books", "www.pandabooks.com.br"));
+//			
+//			if (bTodasEditoras.isSelected()) { new JTableEditoras(array);}
+//			else if(bTodosAutores.isSelected()) {}
+//			else if(bTodosLivros.isSelected()) {}
+//			else if(bLivrosPorAutor.isSelected()) {}
+//			else if(bAutorPorEditora.isSelected()) {}	
+		}
+		
+		
+	}
+	
+	
+
+
 	
 }

@@ -12,6 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import view.pc.altera.JFrameAlterar;
+import view.pc.busca.JFrameBuscar;
+import view.pc.exclui.JFrameExcluir;
+import view.pc.inclui.JFrameIncluir;
+
 public class ViewPC extends JFrame implements View{
 
 	private JButton buttonBusca;
@@ -23,6 +28,7 @@ public class ViewPC extends JFrame implements View{
 	private JFrameAlterar janelaAltera;
 	private JFrameIncluir janelaInclui;
 	private JFrameBuscar janelaBusca;
+	
 	
 	public ViewPC() {
 		super("APS Livraria");
@@ -97,6 +103,7 @@ public class ViewPC extends JFrame implements View{
 			}
 			else if(e.getSource() == buttonBusca) {
 				janelaBusca = new JFrameBuscar();
+				
 			}
 			
 			//janelaInclui = new JFrameEscolheTipo("excluir");
@@ -106,39 +113,10 @@ public class ViewPC extends JFrame implements View{
 		
 	}
 
-
 	@Override
-	public float getPreco() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public String getNome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String getISBN() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public int getAuthorID() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public int getPublisherID() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void addComportamentoBuscaEditoras(ActionListener al) {
+		if(!(janelaBusca == null))
+			janelaBusca.addBuscaEditora(al);
 	}
 	
 	

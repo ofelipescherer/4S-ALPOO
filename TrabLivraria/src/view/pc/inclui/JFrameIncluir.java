@@ -1,4 +1,7 @@
-package view.pc;
+package view.pc.inclui;
+
+
+import view.pc.FrameBase;
 
 public class JFrameIncluir extends FrameBase{
 

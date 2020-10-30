@@ -1,4 +1,6 @@
-package view.pc;
+package view.pc.altera;
+
+
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -11,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -25,6 +28,10 @@ import entities.Author;
 import entities.Publisher;
 
 public class JFrameListEditoras extends JFrame  {
+	JComboBox<String> lista;
+	JPanel panelEscolhas;
+	
+	JComboBox cb;
     private JList list;
 	//JTable table;
     private DefaultListModel listModel;
@@ -37,7 +44,7 @@ public class JFrameListEditoras extends JFrame  {
     
 	ActionListener TerminaListener;
 	
-	public JFrameListEditoras(ArrayList<Publisher> editoras, Publisher editoraEscolhidavar, ActionListener al) {
+	public JFrameListEditoras(ArrayList<Publisher> editoras) {
 		super("Escolhe Editoras");
 		setSize(400,400);
 		
@@ -47,10 +54,8 @@ public class JFrameListEditoras extends JFrame  {
 		//setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
 		
 		this.editoras = editoras;
-		editoraEscolhida = editoraEscolhidavar;
 		listModel = new DefaultListModel();
-	
-		TerminaListener = al;
+
 		
 		for(Publisher a : this.editoras) {
 			listModel.addElement(a.getName());
@@ -84,10 +89,14 @@ public class JFrameListEditoras extends JFrame  {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+	
+	public void addEscolheEditora(ActionListener escolheEditora) {
+        buttonFinish.addActionListener(escolheEditora);
+	}
     
 	public Publisher getEditora() {
 		int index = list.getSelectedIndex();
-		//dispose();
+		
 		return editoraEscolhida = editoras.get(index);
 		
 	}

@@ -2,10 +2,13 @@ package test;
 
 import java.util.ArrayList;
 
+import controller.Controller;
 import entities.Author;
-import view.pc.JFrameListAutores;
+
 import view.pc.View;
+
 import view.pc.ViewPC;
+import view.pc.busca.JFrameBuscar;
 
 public class TesteView {
 
@@ -20,7 +23,7 @@ public class TesteView {
 //		new JFrameListAutores(arrayList);
 //		
 //		System.out.println(autoresEscolhidos);
-		
-		new ViewPC();
+		new Controller(new ViewPC());
+		//new ViewPC();
 	}
 }

@@ -1,4 +1,5 @@
-package view.pc;
+package view.pc.altera;
+
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -12,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,6 +28,10 @@ import javax.swing.event.ListSelectionListener;
 import entities.Author;
 
 public class JFrameListAutores extends JFrame  {
+	JComboBox<String> lista;
+	protected JPanel panelEscolhas;
+	
+	JComboBox cb;
     private JList list;
 	//JTable table;
     private DefaultListModel listModel;

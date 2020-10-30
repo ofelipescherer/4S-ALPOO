@@ -14,14 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FrameBase extends JFrame{
-	JComboBox<String> lista;
-	JPanel panelEscolhas;
-	
-	JComboBox cb;
-	JFormattedTextField txtISBN;
-	JFormattedTextField txtIDAutor;
-	JFormattedTextField txtIDEditora;
-	JButton buttonSubmit;
+
+
+
 	
 	
 	public FrameBase(String tipoDeOperacao) {

@@ -1,4 +1,6 @@
-package view.pc;
+package view.pc.altera;
+
+
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -25,10 +27,16 @@ import javax.swing.text.NumberFormatter;
 
 import entities.Author;
 import entities.Publisher;
+import view.pc.FrameBase;
+
 
 public class JFrameAlterar extends FrameBase{
+	
 	JComboBox<String> lista;
 	PanelAlterar panelEscolhas;
+	
+	JFormattedTextField txtIDAutor;
+	JFormattedTextField txtIDEditora;
 	
 	JComboBox cb;
 	JFormattedTextField txtISBN;
@@ -45,13 +53,15 @@ public class JFrameAlterar extends FrameBase{
 	JTextField txtNovoNomeEditora;
 	JTextField txtNovaUrlEditora;
 	
+	
+	
 	JButton buttonSubmit;
 	public ArrayList<Author> autoresEscolhidos;
 	public Publisher editoraEscolhida;
 	
-	JFrameListEditoras listaEditoras;
+	JFrameListEditoras JanelalistaEditoras;
 	
-	JFrameAlterar(){
+	public JFrameAlterar(){
 		super("alterar");
 		setTitle("Alterar");
 		
@@ -145,7 +155,7 @@ public class JFrameAlterar extends FrameBase{
 					arrayList.add(new Author(313, "Nahara", "Yui"));
 					arrayList.add(new Author(313, "Xandão", "Super"));
 					
-					
+					buttonChooseAuthors.setEnabled(false);
 
 				    new JFrameListAutores(arrayList, autoresEscolhidos);
 				}
@@ -163,17 +173,9 @@ public class JFrameAlterar extends FrameBase{
 					array.add(new Publisher(351, "Behavior", "www.behavior.com"));
 					array.add(new Publisher(5643, "Jota", "www.jota.com"));
 					
-				    class TerminaListener implements ActionListener{
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							
-							
-							editoraEscolhida = listaEditoras.getEditora();
-							System.out.println(editoraEscolhida);
-						}
-				    }
-				    
-					listaEditoras = new JFrameListEditoras(array, editoraEscolhida, new TerminaListener());
+					JanelalistaEditoras = new JFrameListEditoras(array);
+					Publisher editora;
+					JanelalistaEditoras.addEscolheEditora(new EscolherEditora());
 					
 				}
 			});
@@ -241,7 +243,9 @@ public class JFrameAlterar extends FrameBase{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(cb.getSelectedItem().equals("Livros")) {
-				if(!txtISBN.getText().equals(" -   -     - ")) {
+				if(!txtISBN.getText().equals(" -   -     - ") && !txtTitulo.getText().equals("") 
+						&& !txtBookPrice.getText().equals("  .  ")
+						&& !buttonChooseAuthors.isVisible() && !buttonChoosePublishers.isVisible()) {
 					String stringAutores = "";
 					for(Author a : autoresEscolhidos) {
 						stringAutores +=  "\n" + a.getFname() + " " + a.getName() ;
@@ -253,7 +257,7 @@ public class JFrameAlterar extends FrameBase{
 																	"\nAutores: " + stringAutores + 
 																	"\nEditora: " + editoraEscolhida);
 				} else
-					JOptionPane.showMessageDialog(null, "Preencha o campo corretamente");
+					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente e/ou escolha a editora e/ou autores");
 			}else if(cb.getSelectedItem().equals("Autores")) {
 				if(!txtIDAutor.getText().equals("")) {
 					int input = JOptionPane.showConfirmDialog(null,
@@ -262,7 +266,7 @@ public class JFrameAlterar extends FrameBase{
 					if(input == 0)
 						JOptionPane.showMessageDialog(null, "ID do autor: " + txtIDAutor.getText());
 				}else
-					JOptionPane.showMessageDialog(null, "Preencha o campo corretamente");
+					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
 			}else if(cb.getSelectedItem().equals("Editoras")) {
 				if(!txtIDEditora.getText().equals("")) {
 					int input = JOptionPane.showConfirmDialog(null,
@@ -276,6 +280,15 @@ public class JFrameAlterar extends FrameBase{
 		}
     	
     }
+	class EscolherEditora implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Publisher editora = JanelalistaEditoras.getEditora();
+			System.out.println(editora);
+		}
+		
+	}
 	
     
 	
