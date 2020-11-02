@@ -3,15 +3,17 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.dao.jdbc.DaoJDBC;
+import model.dao.adicionar.Adicionar;
+import model.dao.buscar.Busca;
 import view.pc.View;
-import view.pc.ViewPC;
+import view.pc.altera.JFrameAlterar;
 import view.pc.busca.JFrameBuscar;
-import view.pc.busca.ViewBusca;
+import view.pc.exclui.JFrameExcluir;
+import view.pc.inclui.JFrameIncluir;
 
 public class Controller {
 
-	private DaoJDBC dao;
+	//private DaoJDBC dao;
 	private View view;
 	
 	public Controller(View viewPC) {
@@ -21,15 +23,26 @@ public class Controller {
 	}
 	
 	private void init() {
-		this.view.addComportamentoBuscaEditoras(new BuscaEditoraBehavior());;
+		this.view.EscolheJanelaBehavior(new EscolheJanela());;
 	}
 	
-	class BuscaEditoraBehavior implements ActionListener{
+	class EscolheJanela implements ActionListener{
 
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			System.out.println("oi");
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == view.getButtonExclui()) {
+				new ControllerExclui(new JFrameExcluir());
+			}
+			else if(e.getSource() == view.getButtonAltera()) {
+				new ControllerAltera(new JFrameAlterar());
+			}
+			else if(e.getSource() == view.getButtonInclui()) {
+				new ControllerInclui(new JFrameIncluir(), new Adicionar(), new Busca());
+			}
+			else if(e.getSource() == view.getButtonBusca()) {
+				new ControllerBusca(new JFrameBuscar(), new Busca());
+				
+			}
 		}
 		
 	}

@@ -42,7 +42,6 @@ public class JFrameListEditoras extends JFrame  {
 	ArrayList<Publisher> editoras;
 	Publisher editoraEscolhida;
     
-	ActionListener TerminaListener;
 	
 	public JFrameListEditoras(ArrayList<Publisher> editoras) {
 		super("Escolhe Editoras");
@@ -71,7 +70,7 @@ public class JFrameListEditoras extends JFrame  {
         //list.setCellRenderer(new AuthorRender()); //Mostra as celulas bonitinhas na lista 
 // 
         buttonFinish = new JButton(finishString);
-        buttonFinish.addActionListener(TerminaListener);
+        //buttonFinish.addActionListener(TerminaListener);
  
         //Create a panel that uses BoxLayout.
         JPanel buttonPane = new JPanel();
@@ -96,8 +95,9 @@ public class JFrameListEditoras extends JFrame  {
     
 	public Publisher getEditora() {
 		int index = list.getSelectedIndex();
+		dispose();
+		return editoras.get(index);
 		
-		return editoraEscolhida = editoras.get(index);
 		
 	}
     

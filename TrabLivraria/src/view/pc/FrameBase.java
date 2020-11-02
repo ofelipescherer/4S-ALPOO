@@ -14,18 +14,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class FrameBase extends JFrame{
-
-
-
 	
+	public JPanel panelLabels;
 	
 	public FrameBase(String tipoDeOperacao) {
 		// TODO Auto-generated constructor stub
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
-		
-		JPanel panelLabels = new JPanel(); //Panel que guarda as labels
+
+		panelLabels = new JPanel(); //Panel que guarda as labels
 		panelLabels.setLayout(new BoxLayout(panelLabels, BoxLayout.PAGE_AXIS));
 		panelLabels.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -33,7 +31,7 @@ public class FrameBase extends JFrame{
 		panelLabels.add(new JLabel("Escolha a categoria e preencha os campos", JLabel.CENTER));
 		panelLabels.getComponent(0).setFont(new Font("Serif", Font.PLAIN, 30));
 		panelLabels.getComponent(1).setFont(new Font("Serif", Font.PLAIN, 17));
-
+		
 		add(panelLabels);
 		
 	}

@@ -23,7 +23,7 @@ import javax.swing.text.NumberFormatter;
 import view.pc.FrameBase;
 
 
-public class JFrameExcluir extends FrameBase{
+public class JFrameExcluir extends FrameBase implements ViewExclui{
 
 	PanelExcluir panelEscolhas;
 	JComboBox<String> lista;

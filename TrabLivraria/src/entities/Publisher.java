@@ -11,7 +11,7 @@ public class Publisher {
 		this.url = url;
 	}
 	
-	public String geturl() {
+	public String getUrl() {
 		return url;
 	}
 	

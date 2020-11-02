@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -15,29 +17,33 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import entities.Author;
+import entities.Book;
 import entities.Publisher;
 import view.pc.FrameBase;
+import view.pc.busca.tables.JTableAutores;
 import view.pc.busca.tables.JTableEditoras;
 
-public class JFrameBuscar extends FrameBase {
+public class JFrameBuscar extends FrameBase implements ViewBusca{
 
-	JRadioButton bTodosLivros;
-	JRadioButton bTodosAutores;
-	JRadioButton bTodasEditoras;
-	JRadioButton bLivrosPorAutor;
-	JRadioButton bAutorPorEditora;
+	private JRadioButton bTodosLivros;
+	private JRadioButton bTodosAutores;
+	private JRadioButton bTodasEditoras;
+	private JRadioButton bLivrosPorAutor;
+	private JRadioButton bAutorPorEditora;
 	
-	JTextFieldPersonalizado txtSubimit;
-	JButton bSubmit;
+	private JTextFieldPersonalizado txtSubimit;
+	private JButton bSubmit;
 	
-	final String pesquisaLivro = "Escreva um livro";
-	final String pesquisaAutor = "Escreva um autor";
-	final String pesquisaEditora = "Escreva uma editora";
-	String NomeDaDica = pesquisaEditora;
-	ButtonGroup bg;
+	private final String pesquisaLivro = "Escreva um livro";
+	private final String pesquisaAutor = "Escreva um autor";
+	private final String pesquisaEditora = "Escreva uma editora";
+	private String NomeDaDica = pesquisaEditora;
+	private ButtonGroup bg;
 	
 	public JFrameBuscar() {
-		super("buscar");
+		super("Buscar");
+		setTitle("Buscar");
 		
 		setSize(500,400);
 		add(Box.createRigidArea(new Dimension(0, 20)));
@@ -90,8 +96,6 @@ public class JFrameBuscar extends FrameBase {
 			add(bAutorPorEditora);
 			bTodasEditoras.setSelected(true);
 			
-			
-			System.out.println(bg.getSelection());
 		}
 	}
 	
@@ -147,11 +151,6 @@ public class JFrameBuscar extends FrameBase {
 		}
 		
 	}
-	
-	public void addBuscaEditora(ActionListener al) {
-		bSubmit.addActionListener(al);	
-	}
-	
 	class JButtonBehavior implements ActionListener{
 
 		@Override
@@ -163,25 +162,44 @@ public class JFrameBuscar extends FrameBase {
 		}
 		
 	}
-	
-	class ButtonSubmitBehavior implements ActionListener{
 
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			
-			System.out.println("PRINTEI");
-//			ArrayList<Publisher> array = new ArrayList<>();
-//			array.add(new Publisher(3213, "Bandai", "www.bandai.com"));
-//			array.add(new Publisher(123, "Companhia das Letras", "www.companhiadasletras.com.br"));
-//			array.add(new Publisher(123, "Panda Books", "www.pandabooks.com.br"));
-//			
-//			if (bTodasEditoras.isSelected()) { new JTableEditoras(array);}
-//			else if(bTodosAutores.isSelected()) {}
-//			else if(bTodosLivros.isSelected()) {}
-//			else if(bLivrosPorAutor.isSelected()) {}
-//			else if(bAutorPorEditora.isSelected()) {}	
-		}
+	@Override
+	public void addSubmitBehavior(ActionListener al) {
+		bSubmit.addActionListener(al);
 		
+	}
+
+	@Override
+	public void mostrarListaEditora(ArrayList<Publisher> editoras) {
+		new JTableEditoras(editoras);
+	}
+
+	@Override
+	public String getJRadioButton() {
+		for (Enumeration<AbstractButton> buttons = bg.getElements(); buttons.hasMoreElements();) {
+	        AbstractButton button = buttons.nextElement();
+
+	        if (button.isSelected()) {
+	            return button.getText();
+	        }
+	    }
+		return null;
+	}
+
+	@Override
+	public String getJTextFieldText() {
+		return txtSubimit.getText();
+	}
+
+	@Override
+	public void mostrarListaAutor(ArrayList<Author> autores) {
+		new JTableAutores(autores);
+		
+	}
+
+	@Override
+	public void mostrarListaLivro(ArrayList<Book> livros) {
+		// TODO Auto-generated method stub
 		
 	}
 	

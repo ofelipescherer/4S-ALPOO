@@ -6,12 +6,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import entities.Publisher;
 import view.pc.altera.JFrameAlterar;
 import view.pc.busca.JFrameBuscar;
 import view.pc.exclui.JFrameExcluir;
@@ -42,7 +44,6 @@ public class ViewPC extends JFrame implements View{
 		JPanel panelLabels = new JPanel();
 		add(panelLabels);
 		panelLabels.setLayout(new GridLayout(2,1));
-		//panelLabels.setBackground(Color.magenta);
 		
 		JLabel labelWellcome = new JLabel("Bem vindo a biblioteca!", JLabel.CENTER);
 		panelLabels.add(labelWellcome);
@@ -75,11 +76,6 @@ public class ViewPC extends JFrame implements View{
 			buttonInclui.setFont(new Font("Serif", Font.PLAIN, 25));
 			buttonExclui.setFont(new Font("Serif", Font.PLAIN, 25));
 			
-			buttonExclui.addActionListener(new AtivaJanelaEscolheTipo());
-			buttonAltera.addActionListener(new AtivaJanelaEscolheTipo());
-			buttonBusca.addActionListener(new AtivaJanelaEscolheTipo());
-			buttonInclui.addActionListener(new AtivaJanelaEscolheTipo());
-			
 			add(buttonBusca);
 			add(buttonAltera);
 			add(buttonInclui);
@@ -87,36 +83,33 @@ public class ViewPC extends JFrame implements View{
 		}
 	}
 
-	
-	class AtivaJanelaEscolheTipo implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == buttonExclui) {
-				janelaExclui = new JFrameExcluir();
-			}
-			else if(e.getSource() == buttonAltera) {
-				janelaAltera = new JFrameAlterar();
-			}
-			else if(e.getSource() == buttonInclui) {
-				janelaInclui = new JFrameIncluir();
-			}
-			else if(e.getSource() == buttonBusca) {
-				janelaBusca = new JFrameBuscar();
-				
-			}
-			
-			//janelaInclui = new JFrameEscolheTipo("excluir");
-			//janelaBusca = new JFrameEscolheTipo("excluir");
-			//janelaExclui.setCadastrarListener(cadastraListener);
-		}
-		
+	@Override
+	public JButton getButtonBusca() {
+		return buttonBusca;
 	}
 
 	@Override
-	public void addComportamentoBuscaEditoras(ActionListener al) {
-		if(!(janelaBusca == null))
-			janelaBusca.addBuscaEditora(al);
+	public JButton getButtonAltera() {
+		return buttonAltera;
+	}
+
+	@Override
+	public JButton getButtonInclui() {
+		return buttonInclui;
+	}
+
+	@Override
+	public JButton getButtonExclui() {
+		return buttonExclui;
+	}
+
+	@Override
+	public void EscolheJanelaBehavior(ActionListener al) {
+		buttonExclui.addActionListener(al);
+		buttonAltera.addActionListener(al);
+		buttonBusca.addActionListener(al);
+		buttonInclui.addActionListener(al);		
+		
 	}
 	
 	

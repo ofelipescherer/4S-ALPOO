@@ -32,8 +32,7 @@ public class JFrameListAutores extends JFrame  {
 	protected JPanel panelEscolhas;
 	
 	JComboBox cb;
-    private JList list;
-	//JTable table;
+    private JList<Author> list;
     private DefaultListModel listModel;
  
     private static final String finishString = "Terminar";
@@ -46,11 +45,10 @@ public class JFrameListAutores extends JFrame  {
 	ArrayList<Author> arrayAutores;
 	ArrayList<Integer> indexes;
 	
-	public JFrameListAutores(ArrayList<Author> arrayAutores,ArrayList<Author> autoresEscolhidos) {
+	public JFrameListAutores(ArrayList<Author> arrayAutores) {
 		super("Escolhe Autores");
 		
 		this.arrayAutores = arrayAutores;
-		this.arrayAutoresEscolhidos = autoresEscolhidos;
 		setSize(500,500);
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -61,6 +59,7 @@ public class JFrameListAutores extends JFrame  {
 		listModel = new DefaultListModel();
 //
 		indexes = new ArrayList<>();
+		arrayAutoresEscolhidos = new ArrayList<>();
 		
 		for(Author a : this.arrayAutores) {
 			listModel.addElement(a.getFname() + " " + a.getName());
@@ -75,7 +74,6 @@ public class JFrameListAutores extends JFrame  {
 
 // 
         buttonFinish = new JButton(finishString);
-        buttonFinish.addActionListener(new TerminaListener());
         buttonFinish.setEnabled(false);
 // 
         buttonAddAutor = new JButton(addAutorString);
@@ -129,18 +127,21 @@ public class JFrameListAutores extends JFrame  {
             }
         }
     
-    class TerminaListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			for(Integer i : indexes) {
-				arrayAutoresEscolhidos.add(arrayAutores.get(i));
-			}
-			
-			System.out.println(arrayAutoresEscolhidos);
-			dispose();
-		}
+    public void addEscolheAutores(ActionListener al) {
+    	buttonFinish.addActionListener(al);
     }
+    
+    public ArrayList<Author> getAutores() {
+    	
+		for(Integer i : indexes) {
+			arrayAutoresEscolhidos.add(arrayAutores.get(i));
+		}
+		System.out.println(arrayAutoresEscolhidos);
+		dispose();
+		return arrayAutoresEscolhidos;
+    	
+    }
+    
     
 	
 }

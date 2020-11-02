@@ -14,6 +14,8 @@ import java.awt.event.ItemListener;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -30,12 +32,13 @@ import entities.Publisher;
 import view.pc.FrameBase;
 
 
-public class JFrameAlterar extends FrameBase{
+public class JFrameAlterar extends FrameBase implements ViewAltera{
 	
 	JComboBox<String> lista;
 	PanelAlterar panelEscolhas;
 	
 	JFormattedTextField txtIDAutor;
+	
 	JFormattedTextField txtIDEditora;
 	
 	JComboBox cb;
@@ -46,6 +49,7 @@ public class JFrameAlterar extends FrameBase{
 	JButton buttonChoosePublishers;
 	
 	JTextField txtNomeAntigoAutor;
+	JButton AutorEscolhido;
 	JTextField txtNomeAutor;
 	JTextField txtSobrenomeAutor;
 	
@@ -53,13 +57,16 @@ public class JFrameAlterar extends FrameBase{
 	JTextField txtNovoNomeEditora;
 	JTextField txtNovaUrlEditora;
 	
-	
+	Publisher editora;
 	
 	JButton buttonSubmit;
-	public ArrayList<Author> autoresEscolhidos;
-	public Publisher editoraEscolhida;
+	ArrayList<Author> autoresEscolhidos;
+	Publisher editoraEscolhida;
 	
 	JFrameListEditoras JanelalistaEditoras;
+	JFrameListAutores JanelalistaAutores;
+	
+	ArrayList<Author> possiveisAutores;
 	
 	public JFrameAlterar(){
 		super("alterar");
@@ -67,7 +74,8 @@ public class JFrameAlterar extends FrameBase{
 		
 		panelEscolhas = new PanelAlterar();
 		add(panelEscolhas);
-		pack();
+
+		setSize(500,350);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		
@@ -105,11 +113,18 @@ public class JFrameAlterar extends FrameBase{
 
 	        //Create the "cards".
 	        JPanel card1 = new JPanel();
-	        card1.setLayout(new GridLayout(4,2));
+	        card1.setLayout(new GridLayout(3,2));
 	        
 	        txtNomeAntigoAutor = new JTextField();
             card1.add(new JLabel("Nome antigo do Autor: ", JLabel.TRAILING));
-            card1.add(txtNomeAntigoAutor);
+            JPanel divisoria = new JPanel();
+            divisoria.setLayout(new GridLayout(1,2));
+            divisoria.add(txtNomeAntigoAutor);
+            AutorEscolhido = new JButton("Verificar Autor");
+            divisoria.add(AutorEscolhido);
+            card1.add(divisoria);
+            
+            
             
             card1.add(new JLabel("Novo Nome do Autor: ", JLabel.TRAILING));
             txtNomeAutor = new JTextField();
@@ -119,13 +134,12 @@ public class JFrameAlterar extends FrameBase{
 	        txtSobrenomeAutor = new JTextField();
 	        card1.add(txtSobrenomeAutor);
 	        
-	        buttonSubmit = new JButton("Enviar");
-	        buttonSubmit.addActionListener(new testBehavior());
-	        card1.add(buttonSubmit);
+	        
+	        //card1.add(buttonSubmit);
 	        
 	        
 	        JPanel card2 = new JPanel();
-	        card2.setLayout(new GridLayout(6,2));
+	        card2.setLayout(new GridLayout(5,2));
 	        txtISBN = new JFormattedTextField(createFormatter("#-###-#####-#"));
             card2.add(new JLabel("ISBN: ", JLabel.TRAILING));
 	        txtISBN.setPreferredSize( new Dimension( 50, 30 ));
@@ -149,15 +163,14 @@ public class JFrameAlterar extends FrameBase{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					ArrayList<Author> arrayList = new ArrayList<Author>();
-					autoresEscolhidos = new ArrayList<Author>();
 					arrayList.add(new Author(312, "Scherer", "Felipe"));
 					arrayList.add(new Author(313, "Skoll", "Redondo"));
 					arrayList.add(new Author(313, "Nahara", "Yui"));
 					arrayList.add(new Author(313, "Xandão", "Super"));
 					
-					buttonChooseAuthors.setEnabled(false);
+					JanelalistaAutores = new JFrameListAutores(arrayList);
+					JanelalistaAutores.addEscolheAutores(new EscolherAutores());
 
-				    new JFrameListAutores(arrayList, autoresEscolhidos);
 				}
 			});
             card2.add(buttonChooseAuthors);
@@ -174,20 +187,18 @@ public class JFrameAlterar extends FrameBase{
 					array.add(new Publisher(5643, "Jota", "www.jota.com"));
 					
 					JanelalistaEditoras = new JFrameListEditoras(array);
-					Publisher editora;
 					JanelalistaEditoras.addEscolheEditora(new EscolherEditora());
 					
 				}
 			});
             card2.add(buttonChoosePublishers);
             
-	        buttonSubmit = new JButton("Enviar");
-	        buttonSubmit.addActionListener(new testBehavior());
-	        card2.add(buttonSubmit);
+	       // buttonSubmit = new JButton("Enviar");
+	       // card2.add(buttonSubmit);
 
 	        
 	        JPanel card3 = new JPanel();
-	        card3.setLayout(new GridLayout(4,2));
+	        card3.setLayout(new GridLayout(3,2));
 	        txtNomeEditora = new JTextField();
             card3.add(new JLabel("Nome antigo da editora: ", JLabel.TRAILING));
             txtNomeEditora.setPreferredSize( new Dimension( 50, 30 ));
@@ -201,13 +212,8 @@ public class JFrameAlterar extends FrameBase{
 	        card3.add(new JLabel("Nova URL da editora: ", JLabel.TRAILING));
 	        card3.add(txtNovaUrlEditora);	        
 	        
-	        buttonSubmit = new JButton("Enviar");
-	        buttonSubmit.addActionListener(new testBehavior());
-	        card3.add(buttonSubmit);
-	        
-	        
-	    	
-	    	
+	        //buttonSubmit = new JButton("Enviar");
+	        //card3.add(buttonSubmit);
 	        
 	        //Create the panel that contains the "cards".
 	        cards = new JPanel(new CardLayout());
@@ -217,6 +223,8 @@ public class JFrameAlterar extends FrameBase{
 	        
 	        pane.add(comboBoxPane, BorderLayout.PAGE_START);
 	        pane.add(cards, BorderLayout.CENTER);
+	        buttonSubmit = new JButton("Enviar");
+	        pane.add(buttonSubmit, BorderLayout.SOUTH);
 	        
 	    }
 	    
@@ -238,56 +246,58 @@ public class JFrameAlterar extends FrameBase{
         return formatter;
     }
 	
-    class testBehavior implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(cb.getSelectedItem().equals("Livros")) {
-				if(!txtISBN.getText().equals(" -   -     - ") && !txtTitulo.getText().equals("") 
-						&& !txtBookPrice.getText().equals("  .  ")
-						&& !buttonChooseAuthors.isVisible() && !buttonChoosePublishers.isVisible()) {
-					String stringAutores = "";
-					for(Author a : autoresEscolhidos) {
-						stringAutores +=  "\n" + a.getFname() + " " + a.getName() ;
-					}
-					System.out.println(autoresEscolhidos);
-					JOptionPane.showMessageDialog(null, "ISBN: " + txtISBN.getText() +
-																	"\nTitulo: " + txtTitulo.getText() + 
-																	"\nPreco: " + txtBookPrice.getText() +
-																	"\nAutores: " + stringAutores + 
-																	"\nEditora: " + editoraEscolhida);
-				} else
-					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente e/ou escolha a editora e/ou autores");
-			}else if(cb.getSelectedItem().equals("Autores")) {
-				if(!txtIDAutor.getText().equals("")) {
-					int input = JOptionPane.showConfirmDialog(null,
-			                "Caso esse autor esteja relacionado a um livro, também será excluido.\nDeseja continuar?",
-			                "Selecione uma opção...",JOptionPane.YES_NO_CANCEL_OPTION);
-					if(input == 0)
-						JOptionPane.showMessageDialog(null, "ID do autor: " + txtIDAutor.getText());
-				}else
-					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
-			}else if(cb.getSelectedItem().equals("Editoras")) {
-				if(!txtIDEditora.getText().equals("")) {
-					int input = JOptionPane.showConfirmDialog(null,
-			                "Caso essa editora esteja relacionado a um autor, ele também será excluido.\nDeseja continuar?",
-			                "Selecione uma opção...",JOptionPane.YES_NO_CANCEL_OPTION);
-					if(input == 0)
-						JOptionPane.showMessageDialog(null, "ID da editora: " + txtIDEditora.getText());
-				}else
-					JOptionPane.showMessageDialog(null, "Preencha o campo corretamente");
-			}
-		}
-    	
-    }
 	class EscolherEditora implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Publisher editora = JanelalistaEditoras.getEditora();
-			System.out.println(editora);
+			editora = JanelalistaEditoras.getEditora();
+			buttonChoosePublishers.setEnabled(false);
 		}
 		
+	}
+	
+	class EscolherAutores implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			autoresEscolhidos = JanelalistaAutores.getAutores();
+			buttonChooseAuthors.setEnabled(false);
+		}
+	}
+	
+	class setAutoresBehavior implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+		}
+	}
+	
+	
+
+	@Override
+	public Publisher getEditora() {
+		return editora;		
+	}
+	
+	@Override
+	public void addSubmitBehavior(ActionListener al) {
+		buttonSubmit.addActionListener(al);
+	}
+
+	@Override
+	public ArrayList<Author> getAuthors() {
+		return null;
+	}
+
+	@Override
+	public Object getAlteraType() {
+		return cb.getSelectedItem();
+	}
+
+	@Override
+	public void setPossiveisAutores(ArrayList<Author> e) {
+		possiveisAutores = e;
 	}
 	
     

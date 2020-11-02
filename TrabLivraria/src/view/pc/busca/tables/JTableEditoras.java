@@ -32,7 +32,7 @@ public class JTableEditoras extends JFrame{
 		int n = 0;
 		for(Publisher editora: editoras) {
 			data[n][0] = editora.getName();
-			data[n][1] = editora.geturl();
+			data[n][1] = editora.getUrl();
 			n++;
 		}
 		
