@@ -1,4 +1,4 @@
-package view.pc.altera;
+package view.pc.util.list;
 
 
 import java.awt.BorderLayout;
@@ -33,7 +33,7 @@ public class JFrameListAutores extends JFrame  {
 	
 	JComboBox cb;
     private JList<Author> list;
-    private DefaultListModel listModel;
+    private DefaultListModel<String> listModel;
  
     private static final String finishString = "Terminar";
     private static final String addAutorString = "Adicionar Autor";
@@ -56,7 +56,7 @@ public class JFrameListAutores extends JFrame  {
 		//setResizable(false);
 		//setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
 		
-		listModel = new DefaultListModel();
+		listModel = new DefaultListModel<String>();
 //
 		indexes = new ArrayList<>();
 		arrayAutoresEscolhidos = new ArrayList<>();

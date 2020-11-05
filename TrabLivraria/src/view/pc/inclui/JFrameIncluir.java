@@ -26,8 +26,8 @@ import javax.swing.text.MaskFormatter;
 import entities.Author;
 import entities.Publisher;
 import view.pc.FrameBase;
-import view.pc.altera.JFrameListAutores;
-import view.pc.altera.JFrameListEditoras;
+import view.pc.util.list.JFrameListAutores;
+import view.pc.util.list.JFrameListEditoras;
 
 public class JFrameIncluir extends FrameBase implements ViewInclui{
 	private static final long serialVersionUID = 1L;
@@ -280,6 +280,7 @@ public class JFrameIncluir extends FrameBase implements ViewInclui{
 
 		@Override
 		public ArrayList<Author> getAuthorsBook() {return autoresEscolhidos;}
+
 		
 	    
 		

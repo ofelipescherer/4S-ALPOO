@@ -10,9 +10,9 @@ import entities.BooksAuthors;
 import entities.Publisher;
 import model.dao.DaoAdicionar;
 import model.dao.DaoBusca;
-import view.pc.inclui.FrameMessage;
-import view.pc.inclui.FrameMessage2;
 import view.pc.inclui.ViewInclui;
+import view.pc.util.messages.FrameMessage;
+import view.pc.util.messages.FrameMessage2;
 
 public class ControllerInclui {
 
@@ -24,9 +24,7 @@ public class ControllerInclui {
 	
 		this.view = viewInclui;
 		this.daoInclui = daoInclui;
-		this.daoBusca = daoBusca;
-		
-		
+		this.daoBusca = daoBusca;		
 		init();
 	}
 	
@@ -48,9 +46,9 @@ public class ControllerInclui {
 					if(p.getName().equals(nome))
 						doesAlreadyExists = true;
 				}
-				if(nome.equals("") || url.equals("")) {
+				if(nome.equals("") || url.equals("")) { //Caso o usuario nao tenha preenchido todos os campos
 					new FrameMessage2();
-				} else if(doesAlreadyExists) {
+				} else if(doesAlreadyExists) { //Caso o item ja exista no banco de dados
 					new FrameMessage("editora");
 				} else{
 					daoInclui.adicionarEditora(new Publisher(0, view.getEditoraName(), view.getUrl()));
@@ -85,7 +83,7 @@ public class ControllerInclui {
 					new FrameMessage("autor(a)");
 				} else{
 					daoInclui.adicionarLivro(new Book(bookName, ISBN, editora.getId(), price));
-					for(int i= 0; i < autores.size(); i++) {
+					for(int i= 0; i < autores.size(); i++) { //Adiciona quantas os autores ao livro
 						daoInclui.adicionaBookAuthor(new BooksAuthors(ISBN, autores.get(i).getId(), i+1));
 					}
 				}

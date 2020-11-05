@@ -3,33 +3,51 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
 import entities.Author;
+import model.dao.DaoAlterar;
+import model.dao.DaoBusca;
 import view.pc.altera.ViewAltera;
 import view.pc.busca.ViewBusca;
+import view.pc.util.messages.FrameMessage2;
 
 public class ControllerAltera {
 	
 	//private DAOBusca dao;
 	private ViewAltera view;
+	private DaoBusca daoBusca;
+	private DaoAlterar daoAltera;
 	
-	public ControllerAltera(ViewAltera viewAltera) {
+	public ControllerAltera(ViewAltera viewAltera, DaoBusca daoBusca,DaoAlterar daoAltera) {
 		this.view = viewAltera;
-		
+		this.daoBusca = daoBusca;
+		this.daoAltera = daoAltera;
 		init();
 	}
 	
 	private void init() {
 		view.addSubmitBehavior(new submitBehavior());
+		view.addVerificaNomeBehavior(new VerificaNomeAuthor());
+		view.setAutoresEscolherApenasUm(daoBusca.buscaAutor("", ""));
+	}
+
+	class VerificaNomeAuthor implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+
+			
+		}
+	}
+	
+	class addAnotherActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {}
 	}
 
 	class submitBehavior implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Object tipo = view.getAlteraType();
-			System.out.println("certo");
+			Object tipo = view.getComboBoxSelected();
 			if(tipo.equals("Livros")) {
 //				if(!txtISBN.getText().equals(" -   -     - ") && !txtTitulo.getText().equals("") 
 //						&& !txtBookPrice.getText().equals("  .  ")
@@ -44,6 +62,16 @@ public class ControllerAltera {
 //																	"\nPreco: " + txtBookPrice.getText() +
 //																	"\nAutores: " + stringAutores + 
 //																	"\nEditora: " + editoraEscolhida);
+			} else if(tipo.equals("Autores")) {
+				Author author = view.getAuthor();
+				String nome = view.getFirstName();
+				String ultimoNome = view.getLastName();
+				
+				if(author != null || nome.equals("") || ultimoNome.equals("")) { //Caso o usuario nao tenha preenchido todos os campos
+					new FrameMessage2();
+				}else{
+					daoAltera.alterarAutor(new Author(0, nome, ultimoNome));
+				}
 			}
 			
 		}

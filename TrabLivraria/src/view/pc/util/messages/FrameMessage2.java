@@ -1,4 +1,4 @@
-package view.pc.inclui;
+package view.pc.util.messages;
 
 import javax.swing.JOptionPane;
 

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.dao.adicionar.Adicionar;
+import model.dao.alterar.Alterar;
 import model.dao.buscar.Busca;
 import view.pc.View;
 import view.pc.altera.JFrameAlterar;
@@ -34,7 +35,7 @@ public class Controller {
 				new ControllerExclui(new JFrameExcluir());
 			}
 			else if(e.getSource() == view.getButtonAltera()) {
-				new ControllerAltera(new JFrameAlterar());
+				new ControllerAltera(new JFrameAlterar(), new Busca(), new Alterar());
 			}
 			else if(e.getSource() == view.getButtonInclui()) {
 				new ControllerInclui(new JFrameIncluir(), new Adicionar(), new Busca());

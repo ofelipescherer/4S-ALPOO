@@ -1,4 +1,4 @@
-package view.pc.altera;
+package view.pc.util.list;
 
 
 
@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 import entities.Author;
 import entities.Publisher;
 
-public class JFrameListEditoras extends JFrame  {
+public class JFrameListSomenteUmAutor extends JFrame  {
 	JComboBox<String> lista;
 	JPanel panelEscolhas;
 	
@@ -39,11 +39,11 @@ public class JFrameListEditoras extends JFrame  {
     private static final String finishString = "Terminar";
     private JButton buttonFinish;
     
-	ArrayList<Publisher> editoras;
-	Publisher editoraEscolhida;
+	ArrayList<Author> autores;
+	Author autorEscolhido;
     
 	
-	public JFrameListEditoras(ArrayList<Publisher> editoras) {
+	public JFrameListSomenteUmAutor(ArrayList<Author> autores) {
 		super("Escolhe Editoras");
 		setSize(400,400);
 		
@@ -52,12 +52,12 @@ public class JFrameListEditoras extends JFrame  {
 		setResizable(false);
 		//setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
 		
-		this.editoras = editoras;
+		this.autores = autores;
 		listModel = new DefaultListModel();
 
 		
-		for(Publisher a : this.editoras) {
-			listModel.addElement(a.getName());
+		for(Author a : this.autores) {
+			listModel.addElement(a.getFname() + " " + a.getName());
 		}
  
         //Create the list and put it in a scroll pane.
@@ -89,19 +89,20 @@ public class JFrameListEditoras extends JFrame  {
         setVisible(true);
     }
 	
-	public void addEscolheEditora(ActionListener escolheEditora) {
-        buttonFinish.addActionListener(escolheEditora);
+	public void addEscolheAutor(ActionListener escolheAutor) {
+        buttonFinish.addActionListener(escolheAutor);
 	}
     
-	public Publisher getEditora() {
+	public Author getAutor() {
 		int index = list.getSelectedIndex();
 		dispose();
-		return editoras.get(index);
+		return autores.get(index);
 		
 		
 	}
     
 	
 }
+
 
 
